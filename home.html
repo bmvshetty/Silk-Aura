@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Silk Aura - South India's Silk</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0; padding: 0; font-family: 'Roboto', sans-serif;
+        }
+        .top-container {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px; background: linear-gradient(90deg, #ff7e5f, #feb47b, #ff9a8b);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative; /* Needed for magic indicator */
+        }
+        .logo {
+            font-size: 2.5em; color: #fff;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+        nav ul {
+            list-style: none; display: flex; gap: 20px; margin: 0; padding: 0;
+            position: relative; /* Needed for magic indicator */
+        }
+        nav ul li a {
+            text-decoration: none; color: #fff; font-size: 1.2em; font-weight: bold;
+            position: relative; padding: 5px 10px; transition: all 0.3s ease;
+            z-index: 1; /* Ensure links are above the indicator */
+        }
+        nav ul li a:hover {
+            color:rgba(2, 12, 15, 0.91); transform: scale(1.1);
+        }
+
+        /* Magic Navigation Indicator */
+        nav ul::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #fff;
+            transition: width 0.3s ease, left 0.3s ease;
+            z-index: 0; /* Place behind links */
+        }
+
+        nav ul li a:hover ~ ul::before {
+            width: 100%;
+            left: 0;
+        }
+
+        nav ul li:nth-child(2) a:hover ~ ul::before {
+            left: calc(100% / 3);
+        }
+        nav ul li:nth-child(3) a:hover ~ ul::before {
+            left: calc((100% / 3) * 2);
+        }
+
+        main {
+            width: 100%; height: calc(100vh - 60px); display: flex; justify-content: center;
+            align-items: center; flex-direction: column; text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        .modern-heading {
+            font-size: 3em;
+            font-family: 'Playfair Display', serif;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInScale 2s ease-out forwards, slide-left-right 5s linear infinite alternate;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slide-left-right {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(50%); }
+        }
+        .button {
+            display: inline-block; padding: 10px 20px; background-color: #4CAF50;
+            color: white; text-decoration: none; border-radius: 5px; font-weight: bold;
+            margin-top: 20px; transition: 0.3s;
+        }
+        .button:hover { transform: scale(1.1); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); }
+        footer { text-align: center; margin-top: 20px; padding-top: 10px; border-top: 1px solid #ddd; color: #777; }
+        .background-slider {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+        }
+        .background-slider img {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0; animation: sliderAnimation 25s infinite;
+        }
+        .background-slider img:nth-child(1) { animation-delay: 0s; }
+        .background-slider img:nth-child(2) { animation-delay: 5s; }
+        .background-slider img:nth-child(3) { animation-delay: 10s; }
+        .background-slider img:nth-child(4) { animation-delay: 15s; }
+        .background-slider img:nth-child(5) { animation-delay: 20s; }
+        @keyframes sliderAnimation {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            40% { opacity: 1; }
+            60% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-slider">
+        <img src="https://img.freepik.com/premium-photo/industrial-business-design-machine-print-equipment-ink-graphic-printer-technology_163305-241927.jpg" alt="Background 1">
+        <img src="https://i.etsystatic.com/11838817/r/il/262711/2678175661/il_fullxfull.2678175661_dx6l.jpg" alt="Background 2">
+        <img src="https://silkindian.com/img/cms/HandSpunYarns2_1.png" alt="Background 3">
+        <img src="https://image.freepik.com/free-photo/colorful-silk-thread-silkworm-cocoons-nests_35666-380.jpg" alt="Background 4">
+        <img src="https://tetotetote-sendai.jp/common/img/contents/sendaihira/en_thumb_00.jpg" alt="Background 5">
+    </div>
+    <div class="top-container">
+        <div class="logo">SILK <span>AURA</span></div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="/about.html">About Us</a></li>
+                <li><a href="/index.php">sign-in</a></li>
+                <li><a href="/login.php">Login</a></li>
+            </ul>
+        </nav>
+    </div>
+    <main>
+        <h1 class="modern-heading">Discover the Finest Silk</h1>
+        <p style="font-size: 1.2em; color: #555; margin-bottom: 20px;">
+            Connecting South India's rich heritage of silk industries.
+        </p>
+        <hr style="width: 50%; border: 1px solid #feb47b; margin: 20px auto;">
+        <p style="font-size: 1.1em; color: #333;">
+            <span style="font-size: 1.5em; color: #ff7e5f;">✨</span>
+            Premium Silk Threads for Every Craft
+            <span style="font-size: 1.5em; color: #ff7e5f;">✨</span>
+        </p>
+        <a href="#" class="button">Explore Products</a>
+    </main>
+    <footer>
+        <p>&copy;  Silk Aura</p>
+    </footer>
+</body>
+</html>
