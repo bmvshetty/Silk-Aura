@@ -67,6 +67,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     $conn->close();
 }
+
+if (isset($_POST['g-recaptcha-response'])) {
+    $captcha = $_POST['g-recaptcha-response'];
+    $secretKey = '6LeO_SkrAAAAAMLUKFKlhgrAPCHKu1H9o5RpnEnn';  // From Google
+    $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captcha");
+    $responseData = json_decode($response);
+    if (!$responseData->success) {
+        $error = "CAPTCHA verification failed. Please try again.";
+    }
+} else {
+    $error = "Please complete the CAPTCHA.";
+}
+
 ob_end_flush();  // ✅ End output buffering
 ?> 
 <!DOCTYPE html>
@@ -125,6 +138,7 @@ ob_end_flush();  // ✅ End output buffering
             text-decoration: underline;
         }
     </style>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 
@@ -145,8 +159,10 @@ ob_end_flush();  // ✅ End output buffering
             <label><input type="radio" name="user_type" value="seller" required> Seller</label>
         </div>
 
+        <div class="g-recaptcha" data-sitekey="6LeO_SkrAAAAAIpv1j2oxAyQGKUu_PmXB_pc4nkb"></div>
+        <br>
         <button type="submit" class="neumorphic-button">Login</button>
-        
+
         <!-- ✅ Forgot Password Link -->
         <a href="forgot_password.php">Forgot Password?</a>
     </form>
