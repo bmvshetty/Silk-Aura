@@ -161,7 +161,7 @@ $conn->close();
         <div class="message success"><?php echo $success; ?></div>
     <?php endif; ?>
 
-    <form action="index.php" method="POST">
+    <form action="send_otp.php" method="POST">
 
         <input type="text" class="neumorphic-input" name="name" placeholder="Name" required 
                value="<?php echo htmlspecialchars($name); ?>">
