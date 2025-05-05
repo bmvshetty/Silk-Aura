@@ -4,6 +4,10 @@ session_start();
 include 'db_config.php';  // MySQLi connection
 $error = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // ✅ Check classic CAPTCHA
+    if (!isset($_POST['captcha']) || $_POST['captcha'] !== $_SESSION['captcha']) {
+        $error = "Invalid CAPTCHA. Please try again.";
+    } else {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -65,19 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = "Invalid name, email, or user type.";
         }
     }
-    $conn->close();
 }
-
-if (isset($_POST['g-recaptcha-response'])) {
-    $captcha = $_POST['g-recaptcha-response'];
-    $secretKey = '6LeO_SkrAAAAAMLUKFKlhgrAPCHKu1H9o5RpnEnn';  // From Google
-    $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretKey&response=$captcha");
-    $responseData = json_decode($response);
-    if (!$responseData->success) {
-        $error = "CAPTCHA verification failed. Please try again.";
-    }
-} else {
-    $error = "Please complete the CAPTCHA.";
+    $conn->close();
 }
 
 ob_end_flush();  // ✅ End output buffering
@@ -159,8 +152,12 @@ ob_end_flush();  // ✅ End output buffering
             <label><input type="radio" name="user_type" value="seller" required> Seller</label>
         </div>
 
-        <div class="g-recaptcha" data-sitekey="6LeO_SkrAAAAAIpv1j2oxAyQGKUu_PmXB_pc4nkb"></div>
-        <br>
+        <div style="margin: 10px 0;">
+            <img src="captcha.php" alt="CAPTCHA Image"><br>
+            <input type="text" name="captcha" class="neumorphic-input" placeholder="Enter CAPTCHA" required>
+        </div>
+
+
         <button type="submit" class="neumorphic-button">Login</button>
 
         <!-- ✅ Forgot Password Link -->
