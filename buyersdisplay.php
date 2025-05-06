@@ -312,7 +312,8 @@ $conn->close();
         <p>Location: <?php echo htmlspecialchars($shop['shop_address']); ?></p>
         <p>Contact: <?php echo htmlspecialchars($shop['contact_number']); ?></p>
       </div>
-      <a href="shopdetails.php?shop_id=<?php echo $shop['shop_id']; ?>" class="view-btn">View Shop</a>
+      <a href="buyersdisplay2.php?shop_id=<?php echo $shop['shop_id']; ?>" class="view-btn">View Shop</a>
+
     </div>
   <?php endwhile; ?>
 </div>
@@ -371,17 +372,28 @@ $conn->close();
     function viewDetails() {
       window.location.href = "buyersdisplay2.php"; // Replace with your actual details page
     }
-
     window.addEventListener("DOMContentLoaded", () => {
-      const saved = localStorage.getItem("favoriteShop");
-      const icon = document.querySelector(".favorite-icon");
+    const favorites = JSON.parse(localStorage.getItem("favoriteShops")) || [];
+    const currentShop = document.getElementById("shopName").innerText;
+    const icon = document.querySelector(".favorite-icon");
 
-      if (saved) {
-        icon.classList.add("favorited", "fas");
-        icon.classList.remove("far");
-        icon.style.color = "red";
+    const isFavorited = favorites.some(shop => shop.name === currentShop);
+    if (isFavorited) {
+      icon.classList.add("favorited", "fas");
+      icon.classList.remove("far");
+      icon.style.color = "red";
+    }
+  });
+
+  // Redirect "Favorites" link to favorites page
+  document.addEventListener("DOMContentLoaded", () => {
+    const dropdownLinks = document.querySelectorAll(".dropdown-menu a");
+    dropdownLinks.forEach(link => {
+      if (link.textContent.includes("Favorites")) {
+        link.href = "favorites.html"; // <-- add this to go to favorites page
       }
     });
+  });
   </script>
 </body>
 </html>
