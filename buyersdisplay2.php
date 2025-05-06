@@ -157,6 +157,16 @@ $productResult = mysqli_query($conn, $productQuery);
             font-size: 1em;
         }
 
+        .item-ply {
+            color: #777;
+            font-size: 1em;
+        }
+
+        .item-denier {
+            color: #777;
+            font-size: 1em;
+        }
+
         .item-actions button {
             padding: 8px 12px;
             margin-left: 10px;
@@ -191,17 +201,21 @@ $productResult = mysqli_query($conn, $productQuery);
 <?php while($row = mysqli_fetch_assoc($productResult)) { ?>
     <div class="item">
         <div class="item-image">
-            <?php if (!empty($row['image'])): ?>
-                <img src="uploads/<?php echo $row['image_path']; ?>" width="100" height="100" style="border-radius:5px;" />
+            <?php if (!empty($row['image_path'])): ?>
+                <img src="product_images/<?php echo $row['image_path']; ?>" width="100" height="100" style="border-radius:5px;" />
             <?php else: ?>
                 No Image
             <?php endif; ?>
         </div>
+
         <div class="item-details">
             <div class="item-name"><?php echo $row['item_name']; ?></div>
-            <div class="item-price">₹<?php echo $row['price']; ?>/kg</div>
-            <div class="item-min_kgs"><?php echo $row['min_kgs']; ?></div>
+            <div class="item-price">PRICE : <?php echo $row['price']; ?>₹</div>
+            <div class="item-min_kgs">MINIMUM KGS : <?php echo $row['min_kgs']; ?></div>
+            <div class="item-ply">PLY : <?php echo $row['ply']; ?></div>
+            <div class="item-denier">DENIER : <?php echo $row['denier']; ?> </div>
         </div>
+        
         <div class="item-actions">
             <button>Order</button>
             <button>Sample</button>
